@@ -38,8 +38,7 @@ void loop() {
                 motor.setAbsMaxPower(powerInput);
             } else if (cmd == "--shutdown") {
                 motor.shutdown();
-                // Serial.println("[LOG] End of Motor Power Test");
-                delay(250);
+                delay(200);
                 for (;;) {
                     delay(1000);
                 }
@@ -47,8 +46,7 @@ void loop() {
         }
     }
     motor.run();
-    Serial.printf("Input:%d Motor:%d Min:%d Max:%d\r\n", power, motor.getPower(), motor.getAbsMinPower(),
-                  motor.getAbsMaxPower()); // prints power to serial graph
+    motor.debugAllPower(power);
     delay(200);
 }
 
