@@ -11,7 +11,7 @@ private:
     int pinPWM; // pwm pin
     int in1Pin; // in 1 pin
     int in2Pin; // in 2 pin
-    
+
     // pin status
     int in1Level; // high / low
     int in2Level; // high / low
@@ -23,8 +23,8 @@ private:
 
     // motor power
     int power; // power of motor
-    int minPower; // max power for motor
-    int maxPower; // max power for motor
+    int absMinPower; // max power for motor
+    int absMaxPower; // max power for motor
 
     // debug
     bool canDebug = false; // tells if debug is available
@@ -38,10 +38,10 @@ public:
     void forward(); // regular motor rotation direction
 
     void setMaxPower(int new_maxPower); // set max motor power
-    int getMaxPower() { return maxPower; } // get max motor power
+    int getMaxPower() { return absMaxPower; } // get max motor power
 
     void setMinPower(int new_minPower); // set min motor power
-    int getMinPower() { return minPower; } // get min motor power
+    int getMinPower() { return absMinPower; } // get min motor power
 
     void setPower(int new_power); // set motor power
     int getPower() { return power; } // get motor power
