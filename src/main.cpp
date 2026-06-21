@@ -32,12 +32,12 @@ void loop() {
                 motor.setPower(power);
             } else if (cmd.startsWith("--min-power")) {
                 int powerInput = cmd.substring(cmd.indexOf("=") + 1).toInt();
-                motor.setMinPower(powerInput);
+                motor.setAbsMinPower(powerInput);
             } else if (cmd.startsWith("--max-power")) {
                 int powerInput = cmd.substring(cmd.indexOf("=") + 1).toInt();
-                motor.setMaxPower(powerInput);
+                motor.setAbsMaxPower(powerInput);
             } else if (cmd == "--shutdown") {
-                motor.powerDown();
+                motor.shutdown();
                 // Serial.println("[LOG] End of Motor Power Test");
                 delay(250);
                 for (;;) {
@@ -47,8 +47,8 @@ void loop() {
         }
     }
     motor.run();
-    Serial.printf("Input:%d Motor:%d Min:%d Max:%d\r\n", power, motor.getPower(), motor.getMinPower(),
-                  motor.getMaxPower()); // prints power to serial graph
+    Serial.printf("Input:%d Motor:%d Min:%d Max:%d\r\n", power, motor.getPower(), motor.getAbsMinPower(),
+                  motor.getAbsMaxPower()); // prints power to serial graph
     delay(200);
 }
 
