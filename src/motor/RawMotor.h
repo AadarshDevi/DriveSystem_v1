@@ -1,61 +1,266 @@
 //
 // Created by CryosArtic on 6/20/2026.
 //
+#ifndef RAWMOTOR_H
+#define RAWMOTOR_H
 
-#ifndef DRIVESYSTEM_MOTOR_H
-#define DRIVESYSTEM_MOTOR_H
+#include <Arduino.h>
 
 class RawMotor {
 private:
-    // pins
-    int pinPWM; // pwm pin
-    int in1Pin; // in 1 pin
-    int in2Pin; // in 2 pin
+    uint8_t pinPWM;
+    uint8_t pinIN1;
+    uint8_t pinIN2;
 
-    // pin status
-    int in1Level; // high / low
-    int in2Level; // high / low
+    bool pinIN1Enabled;
+    bool pinIN2Enabled;
 
-    // motor
-    bool reverseMotor = false; // reverse motor
-    bool running = false; // motor running?
-    bool shutdownMotor = false; // shutdown motor if exceeding maxPower
+    bool reverseRotation;
+    bool rotationEnabled;
 
-    // motor power
-    int power; // power of motor
-    int absMinPower; // max power for motor
-    int absMaxPower; // max power for motor
+    int power;
+    int absMinPower;
+    int absMaxPower;
+    int shutdownPower;
 
-    // debug
-    bool canDebug = false; // tells if debug is available
+    bool enableDebug;
 
 public:
-    // constructor
-    RawMotor(int new_pinPWM, int new_in1Pin, int new_in2Pin, int new_minPower, int new_maxPower);
+    /**
+     * All Args Constructor
+     * @param new_pinPWM the PWM pin for the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     * @param new_pinIN1Enabled help keep track of level (HIGH/LOW) of new_pinIN1
+     * @param new_pinIN2Enabled help keep track of level (HIGH/LOW) of new_pinIN2
+     * @param new_reverseRotation enables the motor to rotate in the opposite direction
+     * @param new_rotationEnabled enables the motor to rotate
+     * @param new_power the current power of the motor
+     * @param new_absMinPower the absolute min power the motor can use
+     * @param new_absMaxPower the absolute max power the motor can use
+     * @param new_shutdownPower the safe power level that is used when something with the motor goes wrong
+     * @param new_showDebug enables the class methods to print debug info in the Serial Monitor
+     */
+    RawMotor(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
+             bool new_pinIN1Enabled, bool new_pinIN2Enabled,
+             bool new_reverseRotation, bool new_rotationEnabled,
+             int new_power, int new_absMinPower, int new_absMaxPower, int new_shutdownPower,
+             bool new_showDebug
+    );
 
-    void reverse(); // reverse the direction of the motor
-    bool isReverse() { return reverseMotor; } // asking if the motor is reversed
-    void forward(); // regular motor rotation direction
+    /**
+     * A Motor class as close to the hardware with bare minimum essentials
+     * @param new_pinPWM the PWM pin for the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     * @param new_absMinPower the absolute min power the motor can use
+     * @param new_absMaxPower the absolute max power the motor can use
+     */
+    RawMotor(
+        uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
+        int new_absMinPower, int new_absMaxPower
+    );
 
-    void setMaxPower(int new_maxPower); // set max motor power
-    int getMaxPower() { return absMaxPower; } // get max motor power
+    /**
+     * A Motor class as close to the hardware with bare minimum essentials
+     * @param new_pinPWM the PWM pin for the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     * @param new_power the current power of the motor
+     * @param new_absMinPower the absolute min power the motor can use
+     * @param new_absMaxPower the absolute max power the motor can use
+     * @param new_shutdownPower the safe power level that is used when something with the motor goes wrong
+     */
+    RawMotor(
+        uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
+        int new_power, int new_absMinPower, int new_absMaxPower, int new_shutdownPower
+    );
 
-    void setMinPower(int new_minPower); // set min motor power
-    int getMinPower() { return absMinPower; } // get min motor power
+    /**
+     * A Motor class as close to the hardware with bare minimum essentials
+     * @param new_pinPWM the PWM pin for the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     * @param new_power the current power of the motor
+     * @param new_absMinPower the absolute min power the motor can use
+     * @param new_absMaxPower the absolute max power the motor can use
+     * @param new_shutdownPower the safe power level that is used when something with the motor goes wrong
+     * @param new_reverseRotation enables the motor to rotate in the opposite direction
+     */
+    RawMotor(
+        uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
+        int new_power, int new_absMinPower, int new_absMaxPower, int new_shutdownPower,
+        bool new_reverseRotation
+    );
 
-    void setPower(int new_power); // set motor power
-    int getPower() { return power; } // get motor power
+    /**
+     * Set all the motor pins at the same time
+     * @param new_pinPWM the PWM pin for the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     */
+    void setMotorPins(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2);
 
-    void start(); // enable motor to run
-    void stop(); // disaable motor to run
-    bool isRunning() { return running; } // checks if motor is running
-    void run(); // actually turning the motor
-    void shutdown(bool shutdown); // when power > maxPower, if true, power = 0 else power stays = 255
-    void powerDown();
+    /**
+     * set the PWM pin of the motor
+     * @param new_pinPWM the PWM pin for the motor
+     */
+    void setPinPWM(uint8_t new_pinPWM); // todo do the checks so other the pin doesnt below to a diff pin
 
-    void debug(bool new_canDebug); // debug statements in serial monitor
-    void monitor(int new_power); // debug statements in serial monitor
-    void info(); // print all the info of the motor like pins, bools, etc,.
+    /**
+     * set IN1 pin of the motor
+     * @param new_pinIN1 the input 1 pin of the motor
+     */
+    void setPinIN1(uint8_t new_pinIN1);
+
+    /**
+     * set IN2 pin of the motor
+     * @param new_pinIN2 the input 2 pin of the motor
+     */
+    void setPinIN2(uint8_t new_pinIN2);
+
+    /**
+     * get the motor pin for PWM
+     * @return PWM pin
+     */
+    uint8_t getPinPWM();
+
+    /**
+     * get the motor pin for IN1
+     * @return IN1 pin
+     */
+    uint8_t getPinIN1();
+
+    /**
+     * get the motor pin for IN2
+     * @return IN2 pin
+     */
+    uint8_t getPinIN2();
+
+    /**
+     * checks if the motor IN1 pin is HIGH
+     * @return IN1 pin HIGH
+     */
+    bool isPinIN1Enabled();
+
+    /**
+     * checks if the motor IN2 pin is HIGH
+     * @return IN2 pin HIGH
+     */
+    bool isPinIN2Enabled();
+
+    /**
+     * reverses the rotation direction of the motor
+     */
+    void reverse();
+
+    /**
+     * the normal rotation direction of the motor
+     */
+    void forward();
+
+    /**
+     * checks if the motor is rotating in the opposite direction
+     * @return rotation reversed
+     */
+    bool isReverse();
+
+    /**
+     * checks if the motor can turn
+     * @return motor can turn
+     */
+    bool isRotationEnabled();
+
+    /**
+     * enables the motor to be able to rotate
+     */
+    void start();
+
+    /**
+     * disables the motor from being able to rotate
+     */
+    void stop();
+
+    /**
+     * set the power of the motor
+     * @param new_power the power of the motor
+     */
+    void setPower(int new_power);
+
+    /**
+     * set the absolute minimum power the motor can use
+     * @param new_absMinPower the absolute min power the motor can use
+     */
+    void setAbsMinPower(int new_absMinPower);
+
+    /**
+     * set the absolute maximum power of motor
+     * @param new_absMaxPower the absolute max power the motor can use
+     */
+    void setAbsMaxPower(int new_absMaxPower);
+
+    /**
+     * set the shutdown power for the motor
+     * @param new_shutdownPower the safe power level that is used when something with the motor goes wrong
+     */
+    void setShutdownPower(int new_shutdownPower);
+
+    /**
+     * get the power of the motor
+     * @return motor power
+     */
+    int getPower();
+
+    /**
+     * get the absolute min power of the motor
+     * @return motor min power
+     */
+    int getAbsMinPower();
+
+    /**
+     * get the absolute max power of the motor
+     * @return motor max ower
+     */
+    int getAbsMaxPower();
+
+    /**
+     * get the shutdown power of the motor
+     * @return motor shutdown power
+     */
+    int getShutdownPower();
+
+    /**
+     * rotating the motor at the power level saved at that time
+     */
+    void run();
+
+    void shutdown();
+
+    /**
+     * Allow the class to print debug information in the Serial Monitor for debugging purposes
+     * @param new_enableDebug enables the class methods to print debug info in the Serial Monitor
+     */
+    void debug(bool new_enableDebug);
+
+    /**
+     * prints all vars of the obj in the Serial Monitor
+     */
+    void info();
+
+    /**
+     * prints power vars in the Serial Monitor
+     */
+    void debugPower();
+
+    /**
+     * prints motor pins in the Serial Monitor
+     */
+    void debugPins();
+
+    /**
+     * prints rotation vars in the Serial Monitor
+     */
+    void debugMovement();
 };
 
-#endif //DRIVESYSTEM_MOTOR_H
+#endif //RAWMOTOR_H
