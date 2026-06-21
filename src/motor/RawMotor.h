@@ -245,7 +245,7 @@ public:
      * Allow the class to print debug information in the Serial Monitor for debugging purposes
      * @param new_enableDebug enables the class methods to print debug info in the Serial Monitor
      */
-    void debug(bool new_enableDebug);
+    void debug(bool new_enableDebug) { enableDebug = new_enableDebug; }
 
     /**
      * prints all vars of the obj in the Serial Monitor
