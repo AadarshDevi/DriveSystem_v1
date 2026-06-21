@@ -65,4 +65,17 @@ RawMotor::RawMotor(
 ) {
 }
 
+void RawMotor::setMotorPins(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2) {
+    if (
+        new_pinIN1 == new_pinIN2 ||
+        new_pinPWM == new_pinIN1 ||
+        new_pinPWM == new_pinIN2) {
+        return;
+    }
+    pinPWM = new_pinPWM;
+    pinIN1 = new_pinIN1;
+    pinIN2 = new_pinIN2;
+}
+
+
 
