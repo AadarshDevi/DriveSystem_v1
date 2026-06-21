@@ -77,5 +77,37 @@ void RawMotor::setMotorPins(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_
     pinIN2 = new_pinIN2;
 }
 
+void RawMotor::setPower(int new_power) {
+    if (new_power < 0 || new_power < absMinPower) {
+        power = absMinPower;
+        return;
+    }
+
+    // makes sure power doesn't exceed max limit
+    if (new_power > absMaxPower) {
+        power = absMaxPower;
+        return;
+    }
+
+    power = new_power;
+}
+
+void RawMotor::setAbsMinPower(int new_absMinPower) {
+    if (new_absMinPower > absMaxPower) return;
+    absMinPower = new_absMinPower;
+}
+
+void RawMotor::setAbsMaxPower(int new_absMaxPower) {
+    if (new_absMaxPower < absMinPower) return;
+    absMaxPower = new_absMaxPower;
+}
+
+void RawMotor::setShutdownPower(int new_shutdownPower) {
+    shutdownPower = new_shutdownPower;
+}
+
+void RawMotor::run() {
+    // todo code
+}
 
 
