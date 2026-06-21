@@ -10,22 +10,22 @@ RawMotor::RawMotor(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
                    int new_power, int new_absMinPower, int new_absMaxPower, int new_shutdownPower,
                    bool new_showDebug
 ) {
-    this->pinPWM = new_pinPWM;
-    this->pinIN1 = new_pinIN1;
-    this->pinIN2 = new_pinIN2;
+    pinPWM = new_pinPWM;
+    pinIN1 = new_pinIN1;
+    pinIN2 = new_pinIN2;
 
-    this->pinIN1Enabled = new_pinIN1Enabled;
-    this->pinIN2Enabled = new_pinIN2Enabled;
+    pinIN1Enabled = new_pinIN1Enabled;
+    pinIN2Enabled = new_pinIN2Enabled;
 
-    this->reverseRotation = new_reverseRotation;
-    this->rotationEnabled = new_rotationEnabled;
+    reverseRotation = new_reverseRotation;
+    rotationEnabled = new_rotationEnabled;
 
-    this->power = new_power;
-    this->absMinPower = new_absMinPower;
-    this->absMaxPower = new_absMaxPower;
-    this->shutdownPower = new_shutdownPower;
+    power = new_power;
+    absMinPower = new_absMinPower;
+    absMaxPower = new_absMaxPower;
+    shutdownPower = new_shutdownPower;
 
-    this->enableDebug = new_showDebug;
+    enableDebug = new_showDebug;
 }
 
 RawMotor::RawMotor(
