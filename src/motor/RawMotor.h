@@ -1,6 +1,7 @@
 //
 // Created by CryosArtic on 6/20/2026.
 //
+
 #ifndef RAWMOTOR_H
 #define RAWMOTOR_H
 
@@ -234,6 +235,9 @@ public:
      */
     void run();
 
+    /**
+     * powers down the motor to a safe power level of the motor to stop the motor and reduce deterioration
+     */
     void shutdown();
 
     /**
