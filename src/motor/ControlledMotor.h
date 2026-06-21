@@ -9,7 +9,7 @@
 
 class ControlledMotor : public RawMotor {
 private:
-    max_power;
+    // max_power;
 
 public:
     ControlledMotor();
