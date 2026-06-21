@@ -107,37 +107,37 @@ public:
      * set the PWM pin of the motor
      * @param new_pinPWM the PWM pin for the motor
      */
-    void setPinPWM(uint8_t new_pinPWM); // todo do the checks so other the pin doesnt below to a diff pin
+    void setPinPWM(uint8_t new_pinPWM) { setMotorPins(new_pinPWM, pinIN1, pinIN2); }
 
     /**
      * set IN1 pin of the motor
      * @param new_pinIN1 the input 1 pin of the motor
      */
-    void setPinIN1(uint8_t new_pinIN1);
+    void setPinIN1(uint8_t new_pinIN1) { setMotorPins(pinPWM, new_pinIN1, pinIN2); }
 
     /**
      * set IN2 pin of the motor
      * @param new_pinIN2 the input 2 pin of the motor
      */
-    void setPinIN2(uint8_t new_pinIN2);
+    void setPinIN2(uint8_t new_pinIN2) { setMotorPins(pinPWM, pinIN1, new_pinIN2); }
 
     /**
      * get the motor pin for PWM
      * @return PWM pin
      */
-    uint8_t getPinPWM();
+    uint8_t getPinPWM() { return pinPWM; }
 
     /**
      * get the motor pin for IN1
      * @return IN1 pin
      */
-    uint8_t getPinIN1();
+    uint8_t getPinIN1() { return pinIN1; }
 
     /**
      * get the motor pin for IN2
      * @return IN2 pin
      */
-    uint8_t getPinIN2();
+    uint8_t getPinIN2() { return pinIN2; }
 
     /**
      * checks if the motor IN1 pin is HIGH
