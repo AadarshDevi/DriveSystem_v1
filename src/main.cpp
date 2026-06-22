@@ -12,7 +12,9 @@ const int maxPower = 255;
 int power = 127;
 const int shutdownPower = 0;
 
-RawMotor motor(pinPWM, pinIn1, pinIn2, minPower, maxPower);
+// RawMotor motor(pinPWM, pinIn1, pinIn2, minPower, maxPower);
+
+RawMotor motor(pinPWM, pinIn1, pinIn2, power, minPower, maxPower, shutdownPower);
 
 void setup() {
     Serial.begin(115200);
