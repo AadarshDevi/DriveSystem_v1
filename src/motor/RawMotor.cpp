@@ -113,6 +113,18 @@ void RawMotor::setShutdownPower(int new_shutdownPower) {
     shutdownPower = new_shutdownPower;
 }
 
+
+void RawMotor::forward() {
+    reverseRotation = false;
+
+    pinIN1Enabled = true;
+    pinIN2Enabled = false;
+
+    digitalWrite(pinIN1, HIGH);
+    digitalWrite(pinIN2, LOW);
+}
+
+
 void RawMotor::run() {
     if (!rotationEnabled) return;
     analogWrite(pinPWM, power);
