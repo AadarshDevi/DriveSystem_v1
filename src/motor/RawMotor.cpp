@@ -17,6 +17,10 @@ RawMotor::RawMotor(uint8_t new_pinPWM, uint8_t new_pinIN1, uint8_t new_pinIN2,
     pinIN1Enabled = new_pinIN1Enabled;
     pinIN2Enabled = new_pinIN2Enabled;
 
+    pinMode(pinPWM, OUTPUT);
+    pinMode(pinIN1, OUTPUT);
+    pinMode(pinIN2, OUTPUT);
+
     reverseRotation = new_reverseRotation;
     rotationEnabled = new_rotationEnabled;
 
