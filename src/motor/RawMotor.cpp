@@ -119,11 +119,12 @@ void RawMotor::run() {
 }
 
 void RawMotor::shutdown() {
-    power = (power - absMinPower < 15) ? 0 : (int) 0.75 + power;
-    setPower(power);
-    analogWrite(pinPWM, absMinPower);
-    if (power == 0) return;
-    shutdown();
+    while (power != shutdownPower) {
+        power = (power < (absMaxPower * 0.05)) ? shutdownPower : power * 0.75;
+        analogWrite(pinPWM, power);
+        debugAllPower(0);
+        delay(200);
+    }
 }
 
 void RawMotor::info() {
