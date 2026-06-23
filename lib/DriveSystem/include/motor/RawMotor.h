@@ -125,47 +125,47 @@ public:
      * get the motor pin for PWM
      * @return PWM pin
      */
-    uint8_t getPinPWM() { return pinPWM; }
+    uint8_t getPinPWM() const { return pinPWM; }
 
     /**
      * get the motor pin for IN1
      * @return IN1 pin
      */
-    uint8_t getPinIN1() { return pinIN1; }
+    uint8_t getPinIN1() const { return pinIN1; }
 
     /**
      * get the motor pin for IN2
      * @return IN2 pin
      */
-    uint8_t getPinIN2() { return pinIN2; }
+    uint8_t getPinIN2() const { return pinIN2; }
 
     /**
      * checks if the motor IN1 pin is HIGH
      * @return IN1 pin HIGH
      */
-    bool isPinIN1Enabled() { return pinIN1Enabled; }
+    bool isPinIN1Enabled() const { return pinIN1Enabled; }
 
     /**
      * checks if the motor IN2 pin is HIGH
      * @return IN2 pin HIGH
      */
-    bool isPinIN2Enabled() { return pinIN2Enabled; }
+    bool isPinIN2Enabled() const { return pinIN2Enabled; }
 
     /**
      * reverses the rotation direction of the motor
      */
-    void reverse(); // fixme the IN pins' labels
+    void reverse();
 
     /**
      * the normal rotation direction of the motor
      */
-    void forward(); // fixme the IN pins' labels
+    void forward();
 
     /**
      * checks if the motor is rotating in the opposite direction
      * @return rotation reversed
      */
-    bool isReverse() { return reverseRotation; }
+    bool isReverse() const { return reverseRotation; }
 
     /**
      * enables the motor to be able to rotate
@@ -181,7 +181,7 @@ public:
      * checks if the motor can turn
      * @return motor can turn
      */
-    bool isRotationEnabled() { return rotationEnabled; }
+    bool isRotationEnabled() const { return rotationEnabled; }
 
     /**
      * set the power of the motor
@@ -211,30 +211,30 @@ public:
      * get the power of the motor
      * @return motor power
      */
-    int getPower() { return power; }
+    int getPower() const { return power; }
 
     /**
      * get the absolute min power of the motor
      * @return motor min power
      */
-    int getAbsMinPower() { return absMinPower; }
+    int getAbsMinPower() const { return absMinPower; }
 
     /**
      * get the absolute max power of the motor
      * @return motor max ower
      */
-    int getAbsMaxPower() { return absMaxPower; }
+    int getAbsMaxPower() const { return absMaxPower; }
 
     /**
      * get the shutdown power of the motor
      * @return motor shutdown power
      */
-    int getShutdownPower() { return shutdownPower; }
+    int getShutdownPower() const { return shutdownPower; }
 
     /**
      * rotating the motor at the power level saved at that time
      */
-    void run();
+    void run() const;
 
     /**
      * powers down the motor to a safe power level of the motor to stop the motor and reduce deterioration
@@ -250,27 +250,27 @@ public:
     /**
      * prints all vars of the obj in the Serial Monitor
      */
-    void info();
+    void info() const;
 
     /**
      * prints power vars in the Serial Monitor
      */
-    void debugAllPower(int inputPower);
+    void debugAllPower(int inputPower) const;
 
     /**
      * prints motor power vars in the Serial Monitor
      */
-    void debugPower();
+    void debugPower() const;
 
     /**
      * prints motor pins in the Serial Monitor
      */
-    void debugPins();
+    void debugPins() const;
 
     /**
      * prints rotation vars in the Serial Monitor
      */
-    void debugMovement();
+    void debugMovement() const;
 };
 
-#endif //RAWMOTOR_H
+#endif
