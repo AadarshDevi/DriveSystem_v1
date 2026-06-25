@@ -11,8 +11,6 @@ const int maxPower = 255;
 int power = 255;
 const int shutdownPower = 0;
 
-// RawMotor motor(pinPWM, pinIn1, pinIn2, minPower, maxPower);
-
 RawMotor motor(pinPWM, pinIn1, pinIn2, power, minPower, maxPower, shutdownPower);
 
 void setup() {
