@@ -2,13 +2,13 @@
 // Created by CryosArtic on 6/20/2026.
 //
 
-#ifndef RAWMOTOR_H
-#define RAWMOTOR_H
+#ifndef DRIVESYSTEM_RAWMOTOR_H
+#define DRIVESYSTEM_RAWMOTOR_H
 
 #include <Arduino.h>
 
 class RawMotor {
-private:
+protected:
     uint8_t pinPWM;
     uint8_t pinIN1;
     uint8_t pinIN2;
