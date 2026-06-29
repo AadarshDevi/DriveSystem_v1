@@ -7,11 +7,11 @@ constexpr int absMinPower = 0;
 constexpr int absMaxPower = 255;
 constexpr int shutdownPower = 0;
 
-RawMotor left_control(25, 27, 12, power, absMinPower, absMaxPower, shutdownPower);
-RawMotor right_control(26, 33, 32, power, absMinPower, absMaxPower, shutdownPower);
+RawMotor left_control(25, 12, 27, power, absMinPower, absMaxPower, shutdownPower);
+RawMotor right_control(26, 32, 33, power, absMinPower, absMaxPower, shutdownPower);
 
-RawMotor left_drive(14, 21, 4, power, absMinPower, absMaxPower, shutdownPower);
-RawMotor right_drive(13, 23, 22, power, absMinPower, absMaxPower, shutdownPower);
+RawMotor left_drive(14, 4, 21, power, absMinPower, absMaxPower, shutdownPower);
+RawMotor right_drive(13, 22, 23, power, absMinPower, absMaxPower, shutdownPower);
 
 void setup() {
     Serial.begin(115200);
