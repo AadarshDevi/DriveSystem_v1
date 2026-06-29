@@ -134,6 +134,9 @@ void RawMotor::forward() {
     digitalWrite(pinIN2, LOW);
 }
 
+void RawMotor::powerVal(int new_power) {
+    power = new_power;
+}
 
 void RawMotor::run() const {
     if (!rotationEnabled) return;
@@ -141,7 +144,7 @@ void RawMotor::run() const {
 }
 
 void RawMotor::shutdown() {
-    while (power != shutdownPower) {
+    while (power > shutdownPower) {
         power = (power < (absMaxPower * 0.05)) ? shutdownPower : power * 0.75;
         analogWrite(pinPWM, power);
         debugAllPower(0);

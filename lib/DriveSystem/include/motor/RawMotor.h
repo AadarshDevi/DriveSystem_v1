@@ -271,6 +271,12 @@ public:
      * prints rotation vars in the Serial Monitor
      */
     void debugMovement() const;
+
+    /**
+     * Set the power of the motor without any guard rails
+     * @param new_power the power of the motor
+     */
+    void powerVal(int new_power);
 };
 
 #endif
